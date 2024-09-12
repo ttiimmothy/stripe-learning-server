@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException, Res, UnauthorizedException } from '@nestjs/common';
-import { User, UserDocument } from './user.model';
+import { CreateUserDocument, User, UserDocument } from './user.model';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginUserInput } from './dto/login-user.input';
 import { EditProfileInput } from './dto/edit-profile.input';
@@ -32,7 +32,7 @@ export class UserService {
       if (!isMatch) {
         throw new UnauthorizedException("Password not match");
       }
-      const token = this.jwtService.sign({id: user.id});
+      const token = this.jwtService.sign({id: user._id, role: user.role});
       // set cookie
       response.cookie('token', token, {
         httpOnly: true,
@@ -59,6 +59,7 @@ export class UserService {
       if (profilePicture !== undefined) user.profilePicture = profilePicture;
       if (bio !== undefined) user.bio = bio;
       if (profession !== undefined) user.profession = profession;
+      // await this.userRepository.update(userId, user);
       await user.save();
       return this.toEntity(user);
     } catch (error) {

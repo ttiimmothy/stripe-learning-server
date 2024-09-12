@@ -34,6 +34,7 @@ export class User {
 
 @Schema({versionKey: false})
 export class UserDocument extends Document {
+// export class UserDocument {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
 
@@ -63,6 +64,7 @@ export class UserDocument extends Document {
 }
 
 export const userSchema = SchemaFactory.createForClass(UserDocument);
+export type CreateUserDocument = Omit<UserDocument, '_id' | 'role' | 'createdAt'>;
 
 userSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
