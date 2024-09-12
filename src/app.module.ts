@@ -21,6 +21,7 @@ import {DatabaseModule} from "./database/database.module";
       useFactory: () => ({
         autoSchemaFile: true,
         path: '/api/v1/graphql',
+        // implment express response
         context: ({ req, res }) => ({ req, res }),
       }),
     }),

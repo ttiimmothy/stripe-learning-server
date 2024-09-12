@@ -8,22 +8,25 @@ import {JwtService} from "@nestjs/jwt";
 import {Response} from "express";
 import bcrypt from "bcrypt";
 import {ConfigService} from "@nestjs/config";
+import {UserType} from "./user.type";
+import {generateUserResponse} from "./user.util";
+import {Role} from "./role.enum";
+import {UpdateUserRoleInput} from "./dto/update-user-role.input";
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository, private readonly jwtService: JwtService, private readonly configService: ConfigService) {}
   
-  async register(createUserInput: CreateUserInput): Promise<User> {
+  async register(createUserInput: CreateUserInput): Promise<{message: string}> {
     try {
-      return this.toEntity(
-        await this.userRepository.create(createUserInput),
-      );
+      await this.userRepository.create(createUserInput);
+      return {message: "user registered successfully"};
     } catch (error) {
       throw new InternalServerErrorException("Error creating user");
     }
   }
 
-  async login({email, password}: LoginUserInput, response: Response): Promise<{message: string, token: string, user: User}> {
-
+  async login({email, password}: LoginUserInput, response: Response): Promise<{message: string, token: string, user: UserType}> {
+    try {
       const user = await this.userRepository.findOne({email});
       if (!user) {
         throw new UnauthorizedException("User not found");
@@ -40,11 +43,65 @@ export class UserService {
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 3600000, // 1 hour
       });
-      const userResponse = this.toEntity(user);
+      const userResponse = generateUserResponse(user);
       return {message: "Logged in successfully", token, user: userResponse};
-    
+    } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Error logging in");
+    }
   }
 
+  // logout
+  async logout(response: Response): Promise<{message: string}> {
+    response.clearCookie('token');
+    return {message: "Logged out successfully"};
+  }
+
+  // delete user
+  async deleteUser(id: string): Promise<{message: string}> {
+    try {
+      const user = await this.userRepository.findByIdAndDelete(id);
+      if (!user) {
+        throw new NotFoundException("User not found");
+      }
+      return {message: "User deleted successfully"};
+    } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Error deleting user");
+    }
+  }
+  
+  // get all users
+  async findAll(): Promise<User[]> {
+    try {
+      const users = await this.userRepository.find({}, "id email role", {sort: {createdAt: -1}});
+      return users;
+    } catch (error) {
+      throw new InternalServerErrorException("Error getting users");
+    }
+  }
+  
+  // update user role
+  async updateUserRole({userId, role}: UpdateUserRoleInput): Promise<{message: string, user: UserType}> {
+    try {
+      const user = await this.userRepository.findByIdAndUpdate(userId, {role});
+      if (!user) {
+        throw new NotFoundException("User not found"); // 404
+      }
+      return {message: "User role updated successfully", user: generateUserResponse(user)};
+    } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Error updating user role");
+    }
+  }
+
+  // edit or update profile
   async editProfile(editProfileInput: EditProfileInput) {
     try {
       const {userId, username, profilePicture, bio, profession} = editProfileInput;
@@ -59,9 +116,11 @@ export class UserService {
       if (profilePicture !== undefined) user.profilePicture = profilePicture;
       if (bio !== undefined) user.bio = bio;
       if (profession !== undefined) user.profession = profession;
-      // await this.userRepository.update(userId, user);
-      await user.save();
-      return this.toEntity(user);
+      console.log(user)
+      await this.userRepository.findByIdAndUpdate(userId, user);
+      // user.save is not a function here
+      // await user.save();
+      return {message: "Profile updated successfully", user:generateUserResponse(user)};
     } catch (error) {
       if (!(error instanceof InternalServerErrorException)) {
         throw error;
@@ -70,14 +129,9 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find({}, "id email role", {sort: {createdAt: -1}});
-  }
-
-
-  toEntity(userDocument: UserDocument): User {
-    const user = userDocument;
-    delete user.password;
-    return user;
-  }
+  // toEntity(userDocument: UserDocument): User {
+  //   const user = userDocument;
+  //   delete user.password;
+  //   return user;
+  // }
 }

@@ -33,8 +33,8 @@ export class User {
 }
 
 @Schema({versionKey: false})
-export class UserDocument extends Document {
-// export class UserDocument {
+// export class UserDocument extends Document {
+export class UserDocument {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
 
