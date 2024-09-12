@@ -6,7 +6,7 @@ import { config, database, up } from 'migrate-mongo';
 export class DbMigrationService implements OnModuleInit {
   private readonly dbMigrationConfig: Partial<config.Config> = {
     mongodb: {
-      databaseName: this.configService.getOrThrow('DB_NAME'),
+      // databaseName: this.configService.getOrThrow('DB_NAME'),
       url: this.configService.getOrThrow('DB_URL'),
     },
     migrationsDir: `${__dirname}/../../migrations`,
