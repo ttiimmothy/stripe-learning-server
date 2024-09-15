@@ -78,10 +78,25 @@ export class UserService {
   // get all users
   async findAll(): Promise<User[]> {
     try {
-      const users = await this.userRepository.find({}, "id email role", {sort: {createdAt: -1}});
-      return users;
+      return await this.userRepository.find({}, "id email role", {sort: {createdAt: -1}});
     } catch (error) {
       throw new InternalServerErrorException("Error getting users");
+    }
+  }
+
+  // get user by id
+  async findById(id: string): Promise<User> {
+    try {
+      const user = await this.userRepository.findById(id, "id email role");
+      if(!user){
+        throw new NotFoundException("User not found");
+      }
+      return user;
+    } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
+      throw new InternalServerErrorException("Error getting user");
     }
   }
   
@@ -116,7 +131,6 @@ export class UserService {
       if (profilePicture !== undefined) user.profilePicture = profilePicture;
       if (bio !== undefined) user.bio = bio;
       if (profession !== undefined) user.profession = profession;
-      console.log(user)
       await this.userRepository.findByIdAndUpdate(userId, user);
       // user.save is not a function here
       // await user.save();

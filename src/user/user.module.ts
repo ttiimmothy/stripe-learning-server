@@ -16,7 +16,8 @@ import {ConfigService} from "@nestjs/config";
       secret: configService.getOrThrow('JWT_SECRET_KEY'),
     }),
     inject: [ConfigService],
-  }),],
+  })],
   providers: [UserService, UserResolver, UserRepository],
+  exports: [UserService, UserRepository],
 })
 export class UserModule {}

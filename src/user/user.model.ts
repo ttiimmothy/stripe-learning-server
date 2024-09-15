@@ -14,10 +14,11 @@ export class User {
   @Field()
   email: string;
 
-  @Field()
-  password: string;
-  @Field()
-  role: string;
+  @Field({nullable: true})
+  password?: string;
+
+  @Field({nullable: true})
+  role?: string;
 
   @Field({ nullable: true })
   profilePicture?: string;
@@ -28,7 +29,7 @@ export class User {
   @Field({ nullable: true })
   profession?: string;
 
-  @Field()
+  @Field({nullable: true})
   createdAt?: Date;
 }
 

@@ -7,6 +7,8 @@ import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 import {ConfigModule} from "@nestjs/config";
 import Joi from "joi";
 import {DatabaseModule} from "./database/database.module";
+import {ProductModule} from "./product/product.module";
+import {ReviewModule} from "./review/review.module";
 
 @Module({
   imports: [
@@ -21,16 +23,16 @@ import {DatabaseModule} from "./database/database.module";
       useFactory: () => ({
         autoSchemaFile: true,
         path: '/api/v1/graphql',
-        // implment express response
+        // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
       }),
     }),
     DatabaseModule,
-    UserModule
+    UserModule,
+    ProductModule,
+    ReviewModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  
-}
+export class AppModule {}

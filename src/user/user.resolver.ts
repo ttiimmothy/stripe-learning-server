@@ -7,7 +7,7 @@ import { EditProfileInput } from './dto/edit-profile.input';
 import {Injectable, InternalServerErrorException, Res} from "@nestjs/common";
 import {Response} from "express";
 import {LoginResponse} from "./dto/login-user.response";
-import {CreateUserResponse, DeleteUserResponse, LogoutResponse} from "./dto/user.message-string.reponse";
+import {CreateUserResponse, DeleteUserResponse, LogoutResponse} from "./dto/user.message-string.response";
 import {UpdateUserRoleInput} from "./dto/update-user-role.input";
 import {UpdateUserRoleResponse} from "./dto/update-user-role.response";
 import {EditProfileResponse} from "./dto/edit-profile.response";
@@ -54,6 +54,15 @@ export class UserResolver {
   async users() {
     try {
       return this.userService.findAll();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Query(() => User)
+  async user(@Args("id") id: string) {
+    try {
+      return this.userService.findById(id);
     } catch (error) {
       throw error;
     }

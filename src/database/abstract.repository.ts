@@ -1,4 +1,4 @@
-import { FilterQuery, Model, QueryOptions, Types, UpdateQuery } from 'mongoose';
+import { FilterQuery, Model, PopulateOptions, QueryOptions, Types, UpdateQuery } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 
 export abstract class AbstractRepository<T> {
@@ -22,8 +22,8 @@ export abstract class AbstractRepository<T> {
     return document;
   }
 
-  async findById(id: string): Promise<T> {
-    const document = await this.model.findById(id).lean<T>();
+  async findById(id: string, projection?: string | Record<string, any>, options?: QueryOptions & {populate?: PopulateOptions | PopulateOptions[]}): Promise<T> {
+    const document = await this.model.findById(id).select(projection).lean<T>().populate(options?.populate);
     if (!document) {
       throw new NotFoundException('Document not found.');
     }
@@ -50,8 +50,8 @@ export abstract class AbstractRepository<T> {
   async find(
     filterQuery: FilterQuery<T> = {},
     projection?: string | Record<string, any>,
-    options?: QueryOptions): Promise<T[]> {
-    const documents = await this.model.find(filterQuery).select(projection).lean<T[]>().sort(options?.sort);
+    options?: QueryOptions & {populate?: PopulateOptions | PopulateOptions[]}): Promise<T[]> {
+    const documents = await this.model.find(filterQuery).select(projection).lean<T[]>().sort(options?.sort).skip(options?.skip).limit(options?.limit).populate(options?.populate);
     if (!documents) {
       throw new NotFoundException('Documents not found.'); // 404
     }
@@ -59,7 +59,7 @@ export abstract class AbstractRepository<T> {
   }
 
 
-  async findByIdAndUpdate(id: string, update: UpdateQuery<T>): Promise<T> {
+  async findByIdAndUpdate(id: string | Types.ObjectId, update: UpdateQuery<T>): Promise<T> {
     const document = await this.model.findByIdAndUpdate(id, update, {new: true}).lean<T>();
     if (!document) {
       throw new NotFoundException('Document not found.');
@@ -67,8 +67,16 @@ export abstract class AbstractRepository<T> {
     return document;
   }
 
-  async findByIdAndDelete(id: string): Promise<T> {
+  async findByIdAndDelete(id: string | Types.ObjectId): Promise<T> {
     const document = await this.model.findByIdAndDelete(id).lean<T>();
+    if (!document) {
+      throw new NotFoundException('Document not found.');
+    }
+    return document;
+  }
+
+  async deleteMany(filterQuery: FilterQuery<T>): Promise<T> {
+    const document = await this.model.deleteMany(filterQuery).lean<T>();
     if (!document) {
       throw new NotFoundException('Document not found.');
     }

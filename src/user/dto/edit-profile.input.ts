@@ -3,7 +3,7 @@ import {Types} from "mongoose";
 
 @InputType()
 export class EditProfileInput {
-  @Field(() => ID)
+  @Field()
   userId: string;
 
   @Field({ nullable: true })
