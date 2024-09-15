@@ -8,6 +8,7 @@ export const generateProductsResponse = (products: ProductsType[]) => {
     author: {
       _id: product.author._id,
       email: product.author.email,
+      role: product.author.role,
     },
   }));
 }
@@ -19,6 +20,7 @@ export const generateProductResponse = (product: ProductType) => {
       _id: product.author._id,
       email: product.author.email,
       username: product.author.username,
+      role: product.author.role,
     },
   }
 }

@@ -35,9 +35,10 @@ export class ProductService{
     }
   }
 
-  async getProducts(getProductsInput: GetProductsInput): Promise<{products: ProductsType[], totalPages: number, totalProducts: number}>{
+  async getProducts(getProductsInput: GetProductsInput): Promise<{products: ProductDocument[], totalPages: number, totalProducts: number}>{
     try {
-      const {category, color, minPrice, maxPrice, page = 1, limit = 10} = getProductsInput;
+      const {category, color, minPrice, maxPrice, page = "1", limit = "10"} = getProductsInput;
+      // console.log(getProductsInput);
       let filter: FilterType = {};
       if (category && category !== "all") {
         filter.category = category;
@@ -46,36 +47,33 @@ export class ProductService{
         filter.color = color;
       }
       if (minPrice && maxPrice) {
-        const min = minPrice;
-        const max = maxPrice;
+        const min = parseFloat(minPrice);
+        const max = parseFloat(maxPrice);
         if (!isNaN(min) && !isNaN(max)) {
           // $gte greater than or equal
           // $lte lower than or equal
           filter.price = {$gte: min, $lte: max}
         }
       }
-      const skip = (page - 1) * limit;
+      const skip = (parseInt(page) - 1) * parseInt(limit);
       const totalProducts = await this.productRepository.countDocuments(filter);
-      const totalPages = Math.ceil(totalProducts / limit);
+      const totalPages = Math.ceil(totalProducts / parseInt(limit));
       // populate is used to get the author(id and email) of the product
-      const products = await this.productRepository.find(filter,undefined, {skip, limit, sort: {createdAt: -1}, populate: {path: "author", select: "email"}});
-      const productsResponse = generateProductsResponse(products as unknown as ProductsType[]);
-      return {products: productsResponse, totalPages, totalProducts};
+      const products = await this.productRepository.find(filter,undefined, {skip, limit: parseInt(limit), sort: {createdAt: -1}, populate: {path: "author", select: "email role"}});
+      return {products: products, totalPages, totalProducts};
     } catch (error) {
       throw new InternalServerErrorException("Error getting products");
     }
   }
 
-  async getProductById(productId: string): Promise<{product: ProductType, reviews: ReviewsType[]}>{
+  async getProductById(productId: string): Promise<{product: ProductDocument, reviews: ReviewDocument[]}>{
     try {
-      const product = await this.productRepository.findById(productId, undefined, {populate: {path: "author", select: "email username"}});
+      const product = await this.productRepository.findById(productId, undefined, {populate: {path: "author", select: "email username role"}});
       if (!product) {
         throw new NotFoundException("Product not found");
-      }
-      const productResponse = generateProductResponse(product as unknown as ProductType);
-      const reviews = await this.reviewRepository.find({productId}, undefined, {populate: {path: "userId", select: "email username"}});
-      const reviewsResponse = generateReviewsResponse(reviews as unknown as ReviewsType[]);
-      return {product: productResponse, reviews: reviewsResponse};
+      } 
+      const reviews = await this.reviewRepository.find({productId}, undefined, {populate: {path: "userId", select: "email username role"}});
+      return {product, reviews};
     } catch (error) {
       if (!(error instanceof InternalServerErrorException)) {
         throw error;

@@ -17,8 +17,8 @@ export class User {
   @Field({nullable: true})
   password?: string;
 
-  @Field({nullable: true})
-  role?: string;
+  @Field()
+  role: string;
 
   @Field({ nullable: true })
   profilePicture?: string;

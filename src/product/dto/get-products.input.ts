@@ -11,20 +11,20 @@ export class GetProductsInput{
   color: string;
 
   @Field({nullable: true})
-  @IsNumber()
-  minPrice: number;
+  @IsString()
+  minPrice: string;
   
   @Field({nullable: true})
-  @IsNumber()
-  maxPrice: number;
+  @IsString()
+  maxPrice: string;
 
   @Field({nullable: true})
-  @IsNumber()
-  page: number;
+  @IsString()
+  page: string;
 
   @Field({nullable: true})
-  @IsNumber()
-  limit: number;
+  @IsString()
+  limit: string;
 }
 
 @InputType()

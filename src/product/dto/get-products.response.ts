@@ -10,6 +10,8 @@ export class UserId {
   _id: Types.ObjectId;
   @Field()
   email: string;
+  @Field()
+  role: string;
 }
 @ObjectType()
 export class ProductsType {

@@ -29,7 +29,7 @@ export class ProductResolver {
   }
 
   @Query(() => GetProductsResponse)
-  async getProducts(@Args("getProductsInput") getProductsInput: GetProductsInput){
+  async products(@Args("getProductsInput") getProductsInput: GetProductsInput){
     try {
       return this.productService.getProducts(getProductsInput);
     } catch (error) {
@@ -38,7 +38,7 @@ export class ProductResolver {
   }
 
   @Query(() => GetProductResponse)
-  async getProductById(@Args("productId") productId: string){
+  async productById(@Args("productId") productId: string){
     try {
       return this.productService.getProductById(productId);
     } catch (error) {

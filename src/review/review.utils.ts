@@ -7,6 +7,7 @@ export const generateReviewsResponse = (reviews: ReviewsType[]) => {
       _id: review.userId._id,
       email: review.userId.email,
       username: review.userId.username,
+      role: review.userId.role,
     },
   }));
 }
