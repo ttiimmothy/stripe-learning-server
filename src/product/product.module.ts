@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { forwardRef, MiddlewareConsumer, Module } from '@nestjs/common';
 import { ProductService } from './product.service';
 import verifyToken from "../middleware/verifyToken";
 import {ProductResolver} from "./product.resolver";
@@ -16,8 +16,8 @@ import {AuthGuard} from "../auth/auth.guard";
 import {AuthAdminGuard} from "../auth/authAdmin.guard";
 
 @Module({
-  imports: [DatabaseModule.forFeature([{ name: Product.name, schema: productSchema }]), ReviewModule, UserModule],
+  imports: [DatabaseModule.forFeature([{ name: Product.name, schema: productSchema }]), forwardRef(() => ReviewModule), UserModule],
   providers: [ProductService, ProductResolver, ProductRepository],
-  exports: [ProductService, ProductRepository],
+  exports: [ProductRepository],
 })
 export class ProductModule {}

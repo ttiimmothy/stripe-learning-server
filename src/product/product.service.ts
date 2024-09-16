@@ -72,7 +72,7 @@ export class ProductService{
       if (!product) {
         throw new NotFoundException("Product not found");
       } 
-      const reviews = await this.reviewRepository.find({productId}, undefined, {populate: {path: "userId", select: "email username role"}});
+      const reviews = await this.reviewRepository.find({productId}, {populate: {path: "userId", select: "email username role"}});
       return {product, reviews};
     } catch (error) {
       if (!(error instanceof InternalServerErrorException)) {

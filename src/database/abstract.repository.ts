@@ -14,7 +14,6 @@ export abstract class AbstractRepository<T> {
 
   async findOne(filterQuery: FilterQuery<T>): Promise<T> {
     const document = await this.model.findOne(filterQuery).lean<T>();
-
     if (!document) {
       throw new NotFoundException('Document not found.');
     }
@@ -81,5 +80,9 @@ export abstract class AbstractRepository<T> {
       throw new NotFoundException('Document not found.');
     }
     return document;
+  }
+
+  async countDocuments(filter: any): Promise<number> {
+    return this.model.countDocuments(filter);
   }
 }

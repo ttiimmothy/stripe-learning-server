@@ -72,7 +72,7 @@ export class ReviewsType {
 }
 @ObjectType()
 export class GetProductResponse {
-  @Field(() => ProductType, {nullable: true})
+  @Field(() => ProductType)
   product: ProductType;
   @Field(() => [ReviewsType])
   reviews: ReviewsType[];

@@ -33,7 +33,8 @@ export class User {
   createdAt?: Date;
 }
 
-@Schema({versionKey: false})
+// @Schema({versionKey: false})
+@Schema()
 // export class UserDocument extends Document {
 export class UserDocument {
   @Prop({ type: SchemaTypes.ObjectId })

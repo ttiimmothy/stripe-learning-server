@@ -28,13 +28,15 @@ export class Product {
   // author: User;
   @Field(() => ID)
   author: Types.ObjectId;
-  @Field()
-  createdAt: Date;
-  @Field()
-  updatedAt: Date;
+  @Field({nullable: true})
+  createdAt?: Date;
+  @Field({nullable: true})
+  updatedAt?: Date;
 }
 
-@Schema({timestamps: true, versionKey: false})
+// @Schema({timestamps: true, versionKey: false})
+// @Schema({versionKey: false})
+@Schema()
 export class ProductDocument {
   // schematypes.objectid is used to create a new objectid
   @Prop({ type: SchemaTypes.ObjectId })
@@ -64,10 +66,10 @@ export class ProductDocument {
   // author: User;
   @Prop({ types: Types.ObjectId, ref: User.name, required: true })
   author: Types.ObjectId;
-  @Prop()
-  createdAt: Date;
-  @Prop()
-  updatedAt: Date;
+  @Prop({default: Date.now})
+  createdAt?: Date;
+  @Prop({default: Date.now})
+  updatedAt?: Date;
 }
 
 export const productSchema = SchemaFactory.createForClass(ProductDocument);

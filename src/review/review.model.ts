@@ -16,13 +16,14 @@ export class Review {
   userId: Types.ObjectId;
   @Field(() => ID)
   productId: Types.ObjectId;
-  @Field()
-  createdAt: Date;
-  @Field()
-  updatedAt: Date;
+  @Field({nullable: true})
+  createdAt?: Date;
+  @Field({nullable: true})
+  updatedAt?: Date;
 }
 
-@Schema({timestamps: true, versionKey: false})
+// @Schema({versionKey: false})
+@Schema()
 export class ReviewDocument {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
@@ -34,10 +35,10 @@ export class ReviewDocument {
   userId: Types.ObjectId;
   @Prop({ type: Types.ObjectId, ref: Product.name, required: true })
   productId: Types.ObjectId;
-  @Prop()
-  createdAt: Date;
-  @Prop()
-  updatedAt: Date;
+  @Prop({default: Date.now})
+  createdAt?: Date;
+  @Prop({default: Date.now})
+  updatedAt?: Date;
 }
 
 export const reviewSchema = SchemaFactory.createForClass(ReviewDocument);

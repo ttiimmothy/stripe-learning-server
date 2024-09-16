@@ -15,7 +15,7 @@ export class ProductRepository extends AbstractRepository<ProductDocument> {
     return newProduct.save();
   }
 
-  async countDocuments(filter: any): Promise<number> {
-    return this.productModel.countDocuments(filter);
-  }
+  // async countDocuments(filter: any): Promise<number> {
+  //   return this.productModel.countDocuments(filter);
+  // }
 }
