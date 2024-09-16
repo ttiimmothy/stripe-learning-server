@@ -1,5 +1,5 @@
-import { InputType, Field, ID } from '@nestjs/graphql';
-import {Types} from "mongoose";
+import { InputType, Field } from '@nestjs/graphql';
+// import { Types } from 'mongoose';
 
 @InputType()
 export class EditProfileInput {

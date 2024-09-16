@@ -1,15 +1,15 @@
-import {Args, Mutation, Query, Resolver} from "@nestjs/graphql";
-import {ReviewService} from "./review.service";
-import {Review} from "./review.model";
-import {CreateReviewResponse} from "./dto/create-review.response";
-import {CreateReviewInput} from "./dto/create-review.input";
-import {ReviewsCountResponse} from "./dto/reviewsCount.response";
-import {ReviewByIdResponse} from "./dto/reviewById.response";
-import {ReviewsType} from "../product/dto/get-product.response";
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { ReviewService } from './review.service';
+import { Review } from './review.model';
+import { CreateReviewResponse } from './dto/create-review.response';
+import { CreateReviewInput } from './dto/create-review.input';
+import { ReviewsCountResponse } from './dto/reviewsCount.response';
+// import { ReviewByIdResponse } from './dto/reviewById.response';
+import { ReviewsType } from '../product/dto/get-product.response';
 
 @Resolver(() => Review)
-export class ReviewResolver{
-  constructor(private readonly reviewService:ReviewService){}
+export class ReviewResolver {
+  constructor(private readonly reviewService: ReviewService) {}
 
   @Query(() => [Review])
   reviews() {
@@ -21,7 +21,7 @@ export class ReviewResolver{
   }
 
   @Mutation(() => CreateReviewResponse)
-  create(@Args("createReviewInput") createReviewInput: CreateReviewInput) {
+  create(@Args('createReviewInput') createReviewInput: CreateReviewInput) {
     try {
       return this.reviewService.createReview(createReviewInput);
     } catch (error) {
@@ -39,7 +39,7 @@ export class ReviewResolver{
   }
 
   @Query(() => [ReviewsType])
-  reviewsUser(@Args("userId") userId: string) {
+  reviewsUser(@Args('userId') userId: string) {
     try {
       return this.reviewService.reviewsByUserId(userId);
     } catch (error) {

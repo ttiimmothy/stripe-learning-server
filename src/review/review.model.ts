@@ -1,8 +1,8 @@
-import {Field, ID, ObjectType} from "@nestjs/graphql";
-import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import {SchemaTypes, Types} from "mongoose";
-import {Product} from "../product/product.model";
-import {User} from "../user/user.model";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { SchemaTypes, Types } from 'mongoose';
+import { Product } from '../product/product.model';
+import { User } from '../user/user.model';
 
 @ObjectType()
 export class Review {
@@ -16,9 +16,9 @@ export class Review {
   userId: Types.ObjectId;
   @Field(() => ID)
   productId: Types.ObjectId;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   createdAt?: Date;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   updatedAt?: Date;
 }
 
@@ -35,9 +35,9 @@ export class ReviewDocument {
   userId: Types.ObjectId;
   @Prop({ type: Types.ObjectId, ref: Product.name, required: true })
   productId: Types.ObjectId;
-  @Prop({default: Date.now})
+  @Prop({ default: Date.now })
   createdAt?: Date;
-  @Prop({default: Date.now})
+  @Prop({ default: Date.now })
   updatedAt?: Date;
 }
 

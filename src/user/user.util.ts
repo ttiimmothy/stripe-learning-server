@@ -1,5 +1,5 @@
-import {User, UserDocument} from "./user.model";
-import {UserType, UserWithoutMethods} from "./user.type";
+import { UserDocument } from './user.model';
+import { UserType, UserWithoutMethods } from './user.type';
 
 export function generateUser(user: UserWithoutMethods): UserType {
   return {
@@ -9,8 +9,8 @@ export function generateUser(user: UserWithoutMethods): UserType {
     role: user.role,
     profilePicture: user.profilePicture,
     bio: user.bio,
-    profession: user.profession
-  } 
+    profession: user.profession,
+  };
 }
 
 export function generateUserResponse(user: UserDocument): UserType {
@@ -21,6 +21,6 @@ export function generateUserResponse(user: UserDocument): UserType {
     role: user.role,
     profilePicture: user.profilePicture,
     bio: user.bio,
-    profession: user.profession
-  } 
+    profession: user.profession,
+  };
 }

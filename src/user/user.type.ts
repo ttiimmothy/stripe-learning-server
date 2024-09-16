@@ -1,5 +1,5 @@
-import {Types} from "mongoose";
-import {IUser, IUserMethods} from "./user.model.extra";
+import { Types } from 'mongoose';
+import { IUser, IUserMethods } from './user.model.extra';
 
 export type UserWithoutMethods = Omit<IUser, keyof IUserMethods>;
 
@@ -11,4 +11,4 @@ export type UserType = {
   profilePicture?: string;
   bio?: string;
   profession?: string;
-}
+};

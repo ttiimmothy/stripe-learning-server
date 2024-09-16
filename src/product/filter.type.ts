@@ -4,5 +4,5 @@ export type FilterType = {
   price?: {
     $gte: number;
     $lte: number;
-  }
-}
+  };
+};

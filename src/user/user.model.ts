@@ -1,7 +1,7 @@
-import {model, Document, Model, Types, SchemaTypes } from 'mongoose';
+import { Types, SchemaTypes } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import {Field, ID, ObjectType} from "@nestjs/graphql";
-import bcrypt from "bcrypt";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import bcrypt from 'bcrypt';
 
 @ObjectType()
 export class User {
@@ -14,7 +14,7 @@ export class User {
   @Field()
   email: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   password?: string;
 
   @Field()
@@ -29,7 +29,7 @@ export class User {
   @Field({ nullable: true })
   profession?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   createdAt?: Date;
 }
 
@@ -56,19 +56,22 @@ export class UserDocument {
   profilePicture?: string;
 
   @Prop({ default: null })
-  bio?: string
+  bio?: string;
 
   @Prop({ default: null })
   profession?: string;
-  
+
   @Prop({ default: Date.now })
   createdAt: Date;
 }
 
 export const userSchema = SchemaFactory.createForClass(UserDocument);
-export type CreateUserDocument = Omit<UserDocument, '_id' | 'role' | 'createdAt'>;
+export type CreateUserDocument = Omit<
+  UserDocument,
+  '_id' | 'role' | 'createdAt'
+>;
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
   }

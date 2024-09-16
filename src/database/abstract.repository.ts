@@ -1,4 +1,11 @@
-import { FilterQuery, Model, PopulateOptions, QueryOptions, Types, UpdateQuery } from 'mongoose';
+import {
+  FilterQuery,
+  Model,
+  PopulateOptions,
+  QueryOptions,
+  Types,
+  UpdateQuery,
+} from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 
 export abstract class AbstractRepository<T> {
@@ -21,8 +28,16 @@ export abstract class AbstractRepository<T> {
     return document;
   }
 
-  async findById(id: string, projection?: string | Record<string, any>, options?: QueryOptions & {populate?: PopulateOptions | PopulateOptions[]}): Promise<T> {
-    const document = await this.model.findById(id).select(projection).lean<T>().populate(options?.populate);
+  async findById(
+    id: string,
+    projection?: string | Record<string, any>,
+    options?: QueryOptions & { populate?: PopulateOptions | PopulateOptions[] },
+  ): Promise<T> {
+    const document = await this.model
+      .findById(id)
+      .select(projection)
+      .lean<T>()
+      .populate(options?.populate);
     if (!document) {
       throw new NotFoundException('Document not found.');
     }
@@ -49,17 +64,29 @@ export abstract class AbstractRepository<T> {
   async find(
     filterQuery: FilterQuery<T> = {},
     projection?: string | Record<string, any>,
-    options?: QueryOptions & {populate?: PopulateOptions | PopulateOptions[]}): Promise<T[]> {
-    const documents = await this.model.find(filterQuery).select(projection).lean<T[]>().sort(options?.sort).skip(options?.skip).limit(options?.limit).populate(options?.populate);
+    options?: QueryOptions & { populate?: PopulateOptions | PopulateOptions[] },
+  ): Promise<T[]> {
+    const documents = await this.model
+      .find(filterQuery)
+      .select(projection)
+      .lean<T[]>()
+      .sort(options?.sort)
+      .skip(options?.skip)
+      .limit(options?.limit)
+      .populate(options?.populate);
     if (!documents) {
       throw new NotFoundException('Documents not found.'); // 404
     }
     return documents;
   }
 
-
-  async findByIdAndUpdate(id: string | Types.ObjectId, update: UpdateQuery<T>): Promise<T> {
-    const document = await this.model.findByIdAndUpdate(id, update, {new: true}).lean<T>();
+  async findByIdAndUpdate(
+    id: string | Types.ObjectId,
+    update: UpdateQuery<T>,
+  ): Promise<T> {
+    const document = await this.model
+      .findByIdAndUpdate(id, update, { new: true })
+      .lean<T>();
     if (!document) {
       throw new NotFoundException('Document not found.');
     }

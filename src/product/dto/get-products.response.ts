@@ -1,8 +1,8 @@
-import {Field, ID, ObjectType} from "@nestjs/graphql";
-import {Product} from "../product.model";
-import {User} from "../../user/user.model";
-import {Types} from "mongoose";
-import {ProductType} from "./get-product.response";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+// import { Product } from '../product.model';
+// import { User } from '../../user/user.model';
+import { Types } from 'mongoose';
+import { ProductType } from './get-product.response';
 
 @ObjectType()
 export class UserId {
@@ -25,7 +25,7 @@ export class ProductsType {
   description: string;
   @Field()
   price: number;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   oldPrice?: number;
   @Field()
   image: string;
@@ -42,7 +42,7 @@ export class ProductsType {
 }
 
 @ObjectType()
-export class GetProductsResponse{
+export class GetProductsResponse {
   @Field(() => [ProductType])
   products: ProductType[];
 
