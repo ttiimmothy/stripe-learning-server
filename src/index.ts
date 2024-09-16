@@ -22,4 +22,6 @@ export async function bootstrap() {
   return app;
 }
 
-bootstrap();
+if (process.env.NODE_ENV !== 'production') {
+  bootstrap();
+}
