@@ -27,7 +27,7 @@ import { ReviewModule } from './review/review.module';
         // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
         cors: {
-          origin: ['http://localhost:3001', 'https://demoecommerces.vercel.app'],
+          origin: true,
           credentials: true,
         },
       }),
