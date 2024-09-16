@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
-// import { IUser, IUserMethods } from './user.model.extra';
+import { IUser, IUserMethods } from './user.model.extra';
 
-// export type UserWithoutMethods = Omit<IUser, keyof IUserMethods>;
+export type UserWithoutMethods = Omit<IUser, keyof IUserMethods>;
 
 export type UserType = {
   _id: string | Types.ObjectId;

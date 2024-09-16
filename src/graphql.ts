@@ -11,14 +11,14 @@ async function bootstrap() {
     const expressApp = express();
     const adapter = new ExpressAdapter(expressApp);
     app = await NestFactory.create(AppModule, adapter);
-    
+
     // Apply middleware to handle the custom path
     app.use('/api/v1/graphql', (req, res, next) => {
       // Strip '/api/v1' from the URL so that GraphQL can process it correctly
       req.url = req.url.replace('/api/v1', '');
       next();
     });
-    
+
     await app.init();
   }
   return app;
