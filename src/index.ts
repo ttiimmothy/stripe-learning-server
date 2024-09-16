@@ -4,7 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 
-export async function bootstrap() {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // middleware
   app.use(cookieParser());
