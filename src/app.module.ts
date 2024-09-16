@@ -26,6 +26,10 @@ import { ReviewModule } from './review/review.module';
         playground: true,
         // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
+        cors: {
+          origin: ['http://localhost:3001', 'https://demoecommerces.vercel.app'],
+          credentials: true,
+        },
       }),
     }),
     DatabaseModule,
