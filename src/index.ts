@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: 'http://localhost:3001',
+      origin: ['http://localhost:3001', 'https://demoecommerces.vercel.app'],
       credentials: true,
     }),
   );
