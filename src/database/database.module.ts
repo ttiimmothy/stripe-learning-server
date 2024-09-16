@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
-import { DbMigrationService } from './db-migration.service';
+// import { DbMigrationService } from './db-migration.service';
 import { Connection } from 'mongoose';
 
 @Module({
@@ -22,7 +22,7 @@ import { Connection } from 'mongoose';
       inject: [ConfigService],
     }),
   ],
-  providers: [DbMigrationService, Connection],
+  providers: [Connection],
 })
 export class DatabaseModule implements OnModuleInit {
   constructor(private connection: Connection) {}
