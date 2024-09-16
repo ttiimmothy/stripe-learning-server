@@ -10,7 +10,7 @@ async function bootstrap() {
   if (!app) {
     const expressApp = express();
     const adapter = new ExpressAdapter(expressApp);
-    app = await NestFactory.create(AppModule, adapter);
+    app = await NestFactory.create(AppModule, adapter, { logger: ['error', 'warn'] });
 
     // Apply middleware to handle the custom path
     app.use('/api/v1/graphql', (req, res, next) => {
@@ -25,7 +25,12 @@ async function bootstrap() {
 }
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-  const app = await bootstrap();
-  const server = app.getHttpAdapter().getInstance();
-  return server(req, res);
+  try {
+    const app = await bootstrap();
+    const server = app.getHttpAdapter().getInstance();
+    return server(req, res);
+  } catch (error) {
+    console.error('Error in serverless function:', error);
+    res.status(500).send('Internal Server Error');
+  }
 };
