@@ -4,7 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 
-async function bootstrap() {
+export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // middleware
   app.use(cookieParser());
@@ -14,10 +14,12 @@ async function bootstrap() {
       credentials: true,
     }),
   );
-  // app.setGlobalPrefix('/api');
+  app.setGlobalPrefix('/api/v1');
   const configService = app.get(ConfigService);
   const port = configService.get('PORT') || 3002;
   await app.listen(port);
   console.log(`Server is running on port ${port}`);
+  return app;
 }
+
 bootstrap();
