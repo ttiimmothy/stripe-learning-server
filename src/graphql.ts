@@ -11,6 +11,7 @@ async function bootstrap() {
     const expressApp = express();
     const adapter = new ExpressAdapter(expressApp);
     app = await NestFactory.create(AppModule, adapter, { logger: ['error', 'warn'] });
+    // app = await NestFactory.create(AppModule, adapter);
 
     // Apply middleware to handle the custom path
     app.use('/api/v1/graphql', (req, res, next) => {
