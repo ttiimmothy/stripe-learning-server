@@ -1,4 +1,4 @@
-import {Request} from "express";
+import { Request } from 'express';
 
 // Extend the Express Request type
 export interface RequestWithUser extends Request {

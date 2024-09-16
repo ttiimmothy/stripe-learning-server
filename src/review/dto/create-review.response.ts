@@ -1,8 +1,8 @@
-import {Field, ObjectType} from "@nestjs/graphql";
-import {Review} from "../review.model";
+import { Field, ObjectType } from '@nestjs/graphql';
+import { Review } from '../review.model';
 
 @ObjectType()
-export class CreateReviewResponse{
+export class CreateReviewResponse {
   @Field(() => String)
   message: string;
 

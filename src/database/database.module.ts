@@ -2,7 +2,7 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
 import { DbMigrationService } from './db-migration.service';
-import {Connection} from "mongoose";
+import { Connection } from 'mongoose';
 
 @Module({
   imports: [

@@ -1,8 +1,8 @@
-import {InputType, Field, ID} from "@nestjs/graphql";
-import {Types} from "mongoose";
+import { InputType, Field, ID } from '@nestjs/graphql';
+import { Types } from 'mongoose';
 
 @InputType()
-export class CreateReviewInput{
+export class CreateReviewInput {
   @Field(() => String)
   comment: string;
   @Field()

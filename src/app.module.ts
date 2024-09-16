@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {UserModule} from "./user/user.module";
-import {GraphQLModule} from "@nestjs/graphql";
-import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
-import {ConfigModule} from "@nestjs/config";
-import Joi from "joi";
-import {DatabaseModule} from "./database/database.module";
-import {ProductModule} from "./product/product.module";
-import {ReviewModule} from "./review/review.module";
+import { UserModule } from './user/user.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule } from '@nestjs/config';
+import Joi from 'joi';
+import { DatabaseModule } from './database/database.module';
+import { ProductModule } from './product/product.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import {ReviewModule} from "./review/review.module";
     DatabaseModule,
     UserModule,
     ProductModule,
-    ReviewModule
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],

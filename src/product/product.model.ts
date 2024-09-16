@@ -1,7 +1,7 @@
-import {User} from "../user/user.model";
-import {Field, ID, ObjectType, Float} from "@nestjs/graphql";
-import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import {Types, Document, SchemaTypes} from "mongoose";
+import { User } from '../user/user.model';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types, SchemaTypes } from 'mongoose';
 
 // Product and ProductDocument can have different properties
 @ObjectType()
@@ -16,7 +16,7 @@ export class Product {
   description: string;
   @Field()
   price: number;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   oldPrice?: number;
   @Field()
   image: string;
@@ -28,9 +28,9 @@ export class Product {
   // author: User;
   @Field(() => ID)
   author: Types.ObjectId;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   createdAt?: Date;
-  @Field({nullable: true})
+  @Field({ nullable: true })
   updatedAt?: Date;
 }
 
@@ -50,7 +50,7 @@ export class ProductDocument {
 
   @Prop({ required: true })
   price: number;
-  @Prop({nullable: true})
+  @Prop({ nullable: true })
   oldPrice?: number;
 
   @Prop({ required: true })
@@ -59,16 +59,16 @@ export class ProductDocument {
   @Prop({ required: true })
   color: string;
 
-  @Prop({default: 0}) 
+  @Prop({ default: 0 })
   rating: number;
 
   // @Prop({ types: User, ref: User.name, required: true })
   // author: User;
   @Prop({ types: Types.ObjectId, ref: User.name, required: true })
   author: Types.ObjectId;
-  @Prop({default: Date.now})
+  @Prop({ default: Date.now })
   createdAt?: Date;
-  @Prop({default: Date.now})
+  @Prop({ default: Date.now })
   updatedAt?: Date;
 }
 

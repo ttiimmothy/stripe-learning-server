@@ -1,17 +1,17 @@
-import {User, UserDocument} from "./user.model";
-import {UserType, UserWithoutMethods} from "./user.type";
+import { UserDocument } from './user.model';
+import { UserType } from './user.type';
 
-export function generateUser(user: UserWithoutMethods): UserType {
-  return {
-    _id: user.id,
-    username: user.username,
-    email: user.email,
-    role: user.role,
-    profilePicture: user.profilePicture,
-    bio: user.bio,
-    profession: user.profession
-  } 
-}
+// export function generateUser(user: UserWithoutMethods): UserType {
+//   return {
+//     _id: user.id,
+//     username: user.username,
+//     email: user.email,
+//     role: user.role,
+//     profilePicture: user.profilePicture,
+//     bio: user.bio,
+//     profession: user.profession,
+//   };
+// }
 
 export function generateUserResponse(user: UserDocument): UserType {
   return {
@@ -21,6 +21,6 @@ export function generateUserResponse(user: UserDocument): UserType {
     role: user.role,
     profilePicture: user.profilePicture,
     bio: user.bio,
-    profession: user.profession
-  } 
+    profession: user.profession,
+  };
 }

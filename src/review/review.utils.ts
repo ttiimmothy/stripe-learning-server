@@ -1,4 +1,4 @@
-import {ReviewsType} from "../product/dto/get-product.response";
+import { ReviewsType } from '../product/dto/get-product.response';
 
 export const generateReviewsResponse = (reviews: ReviewsType[]) => {
   return reviews.map((review) => ({
@@ -10,4 +10,4 @@ export const generateReviewsResponse = (reviews: ReviewsType[]) => {
       role: review.userId.role,
     },
   }));
-}
+};

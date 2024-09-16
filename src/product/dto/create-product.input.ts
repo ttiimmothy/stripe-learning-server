@@ -1,10 +1,16 @@
-import {Field, ID, InputType} from "@nestjs/graphql";
-import {IsNotEmpty, IsString, IsNumber, IsMongoId, IsOptional} from "class-validator";
-import {Types} from "mongoose";
-import {User} from "../../user/user.model";
+import { Field, ID, InputType } from '@nestjs/graphql';
+import {
+  IsNotEmpty,
+  IsString,
+  IsNumber,
+  IsMongoId,
+  IsOptional,
+} from 'class-validator';
+import { Types } from 'mongoose';
+// import { User } from '../../user/user.model';
 
 @InputType()
-export class CreateProductInput{
+export class CreateProductInput {
   @Field()
   @IsNotEmpty()
   @IsString()
@@ -19,13 +25,13 @@ export class CreateProductInput{
   @IsNotEmpty()
   @IsString()
   description: string;
-  
+
   @Field()
   @IsNotEmpty()
   @IsNumber()
   price: number;
-  
-  @Field({nullable: true})
+
+  @Field({ nullable: true })
   @IsNumber()
   @IsOptional()
   oldPrice?: number;
@@ -41,7 +47,7 @@ export class CreateProductInput{
   color: string;
 
   // need to set nullable to true
-  @Field({nullable: true})
+  @Field({ nullable: true })
   @IsNumber()
   @IsOptional()
   rating?: number;
@@ -49,5 +55,5 @@ export class CreateProductInput{
   @Field(() => ID)
   @IsNotEmpty()
   @IsMongoId()
-  author: Types.ObjectId
+  author: Types.ObjectId;
 }

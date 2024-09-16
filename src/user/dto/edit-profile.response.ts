@@ -1,5 +1,5 @@
-import { ObjectType, Field } from "@nestjs/graphql";
-import { User } from "../user.model";
+import { ObjectType, Field } from '@nestjs/graphql';
+import { User } from '../user.model';
 
 @ObjectType()
 export class EditProfileResponse {
