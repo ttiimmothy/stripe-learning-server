@@ -13,7 +13,13 @@
   "routes": [
     {
       "src": "/api/v1/graphql",
-      "dest": "src/graphql.ts"
+      "dest": "src/graphql.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": ["https://demoecommerces.vercel.app", "http://localhost:3001"],
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Accept, Authorization"
+      }
     },
     {
       "src": "/(.*)",
