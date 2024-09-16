@@ -399,7 +399,8 @@ dist
 .webpack
 .serverless/**/*.zip
 
-*.controller.ts
+user.controller.ts
 *.extra.ts
 abstract.entity.ts
 user-email-index.ts
+generateToken.ts
