@@ -1,5 +1,28 @@
-import {VercelRequest, VercelResponse} from "@vercel/node";
-import {bootstrap} from ".";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from '../src/app.module';
+import { VercelRequest, VercelResponse } from '@vercel/node';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express';
+
+let app;
+
+async function bootstrap() {
+  if (!app) {
+    const expressApp = express();
+    const adapter = new ExpressAdapter(expressApp);
+    app = await NestFactory.create(AppModule, adapter);
+    
+    // Apply middleware to handle the custom path
+    app.use('/api/v1/graphql', (req, res, next) => {
+      // Strip '/api/v1' from the URL so that GraphQL can process it correctly
+      req.url = req.url.replace('/api/v1', '');
+      next();
+    });
+    
+    await app.init();
+  }
+  return app;
+}
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   const app = await bootstrap();

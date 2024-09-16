@@ -23,6 +23,7 @@ import { ReviewModule } from './review/review.module';
       useFactory: () => ({
         autoSchemaFile: true,
         path: '/api/v1/graphql',
+        playground: true,
         // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
       }),
