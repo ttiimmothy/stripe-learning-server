@@ -13,6 +13,13 @@ async function bootstrap() {
     app = await NestFactory.create(AppModule, adapter, { logger: ['error', 'warn'] });
     // app = await NestFactory.create(AppModule, adapter);
 
+    app.enableCors({
+      origin: 'https://demoecommerces.vercel.app',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      allowedHeaders: 'X-Requested-With, Content-Type, Accept, Authorization',
+      credentials: true,
+    });
+    
     // Apply middleware to handle the custom path
     app.use('/api/v1/graphql', (req, res, next) => {
       // Strip '/api/v1' from the URL so that GraphQL can process it correctly
