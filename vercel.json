@@ -13,16 +13,18 @@
   "routes": [
     {
       "src": "/api/v1/graphql",
-      "dest": "src/graphql.ts",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://demoecommerces.vercel.app",
-        "Access-Control-Allow-Headers": "Content-Type, Accept, Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      }
+      "dest": "src/graphql.ts"
     },
     {
       "src": "/(.*)",
-      "dest": "src/index.ts"
+      "dest": "src/index.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "https://demoecommerces.vercel.app",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Authorization",
+        "Access-Control-Allow-Credentials": "true"
+      }
     }
   ]
 }

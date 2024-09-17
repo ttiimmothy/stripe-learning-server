@@ -26,6 +26,10 @@ async function bootstrap() {
 }
 
 export default async (req: VercelRequest, res: VercelResponse) => {
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
   try {
     const app = await bootstrap();
     const server = app.getHttpAdapter().getInstance();
