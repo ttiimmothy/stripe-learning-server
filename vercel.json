@@ -15,7 +15,7 @@
       "src": "/api/v1/graphql",
       "dest": "src/graphql.ts",
       "headers": {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://demoecommerces.vercel.app",
         "Access-Control-Allow-Headers": "Content-Type, Accept, Authorization"
       }
     },
