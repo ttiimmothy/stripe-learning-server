@@ -3,3 +3,4 @@ src/user/user.controller.ts
 src/user/user.type.ts
 src/user/user.util.ts
 src/user/user.util.extra.ts
+src/user/user.type.extra.ts
