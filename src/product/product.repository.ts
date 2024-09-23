@@ -6,10 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 @Injectable()
 export class ProductRepository extends AbstractRepository<ProductDocument> {
-  constructor(
-    @InjectModel(Product.name)
-    private readonly productModel: Model<ProductDocument>,
-  ) {
+  constructor( @InjectModel(Product.name) private readonly productModel: Model<ProductDocument>) {
     super(productModel);
   }
 
@@ -20,8 +17,4 @@ export class ProductRepository extends AbstractRepository<ProductDocument> {
     });
     return newProduct.save();
   }
-
-  // async countDocuments(filter: any): Promise<number> {
-  //   return this.productModel.countDocuments(filter);
-  // }
 }

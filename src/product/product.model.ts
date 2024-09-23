@@ -24,8 +24,6 @@ export class Product {
   color: string;
   @Field()
   rating: number;
-  // @Field(() => User)
-  // author: User;
   @Field(() => ID)
   author: Types.ObjectId;
   @Field({ nullable: true })
@@ -34,8 +32,6 @@ export class Product {
   updatedAt?: Date;
 }
 
-// @Schema({timestamps: true, versionKey: false})
-// @Schema({versionKey: false})
 @Schema()
 export class ProductDocument {
   // schematypes.objectid is used to create a new objectid
@@ -61,9 +57,6 @@ export class ProductDocument {
 
   @Prop({ default: 0 })
   rating: number;
-
-  // @Prop({ types: User, ref: User.name, required: true })
-  // author: User;
   @Prop({ types: Types.ObjectId, ref: User.name, required: true })
   author: Types.ObjectId;
   @Prop({ default: Date.now })

@@ -1,9 +1,9 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Types } from 'mongoose';
-import { ProductType } from './get-product.response';
+import {Field, ID, InputType} from "@nestjs/graphql";
+import {IsNumber} from "class-validator";
+import {Types} from "mongoose";
 
-@ObjectType()
-export class UserId {
+@InputType()
+class OrderUser {
   @Field(() => ID)
   _id: Types.ObjectId;
   @Field()
@@ -11,8 +11,9 @@ export class UserId {
   @Field()
   role: string;
 }
-@ObjectType()
-export class ProductsType {
+
+@InputType()
+export class Products {
   @Field(() => ID)
   _id: Types.ObjectId;
   @Field()
@@ -31,22 +32,19 @@ export class ProductsType {
   color: string;
   @Field()
   rating: number;
-  @Field(() => UserId)
-  author: UserId;
+  @Field(() => OrderUser)
+  author: OrderUser;
   @Field()
   createdAt: Date;
   @Field()
   updatedAt: Date;
+  @Field()
+  @IsNumber()
+  quantity: number
 }
 
-@ObjectType()
-export class GetProductsResponse {
-  @Field(() => [ProductType])
-  products: ProductType[];
-
-  @Field()
-  totalPages: number;
-
-  @Field()
-  totalProducts: number;
+@InputType()
+export class CheckoutProductInput {
+  @Field(() => [Products])
+  products: Products[]
 }

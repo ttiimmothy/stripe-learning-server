@@ -1,6 +1,6 @@
 import { Types, SchemaTypes } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import bcrypt from 'bcrypt';
 
 @ObjectType()
@@ -33,9 +33,7 @@ export class User {
   createdAt?: Date;
 }
 
-// @Schema({versionKey: false})
 @Schema()
-// export class UserDocument extends Document {
 export class UserDocument {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;

@@ -2,6 +2,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 // import { Product } from '../product.model';
 import { User } from '../../user/user.model';
 import { Types } from 'mongoose';
+import {UserId} from "./get-products.response";
 // import { Review } from '../../review/review.model';
 
 @ObjectType()
@@ -44,8 +45,8 @@ export class ProductType {
   color: string;
   @Field()
   rating: number;
-  @Field(() => User)
-  author: User;
+  @Field(() => UserId)
+  author: UserId;
   @Field()
   createdAt: Date;
   @Field()

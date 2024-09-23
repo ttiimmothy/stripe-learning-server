@@ -7,7 +7,6 @@ import {
   IsOptional,
 } from 'class-validator';
 import { Types } from 'mongoose';
-// import { User } from '../../user/user.model';
 
 @InputType()
 export class CreateProductInput {

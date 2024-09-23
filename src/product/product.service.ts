@@ -1,5 +1,4 @@
-import {
-  BadRequestException,
+import { BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -8,21 +7,10 @@ import { CreateProductInput } from './dto/create-product.input';
 import { ProductRepository } from './product.repository';
 import { Product, ProductDocument } from './product.model';
 import { ReviewRepository } from '../review/review.repository';
-import {
-  GetProductsInput,
-  GetProductsSearchInput,
-} from './dto/get-products.input';
+import { GetProductsInput, GetProductsSearchInput } from './dto/get-products.input';
 import { FilterType } from './filter.type';
-// import {
-//   generateProductResponse,
-//   generateProductsResponse,
-// } from './product.utils';
-// import { ProductsType } from './dto/get-products.response';
 import { ReviewDocument } from '../review/review.model';
-// import { ProductType, ReviewsType } from './dto/get-product.response';
-// import { generateReviewsResponse } from '../review/review.utils';
 import { UserRepository } from '../user/user.repository';
-// import { User } from '../user/user.model';
 import { UpdateProductInput } from './dto/update-product.input';
 
 @Injectable()
@@ -72,7 +60,6 @@ export class ProductService {
         page = '1',
         limit = '10',
       } = getProductsInput;
-      // console.log(getProductsInput);
       const filter: FilterType = {};
       if (category && category !== 'all') {
         filter.category = category;
@@ -143,7 +130,7 @@ export class ProductService {
       const product = await this.productRepository.findById(
         productId,
         undefined,
-        { populate: { path: 'author', select: 'email username role' } },
+        { populate: { path: 'author', select: 'email role' } },
       );
       if (!product) {
         throw new NotFoundException('Product not found');

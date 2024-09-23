@@ -2,15 +2,9 @@ import { Product } from './product.model';
 import { ProductService } from './product.service';
 import { CreateProductInput } from './dto/create-product.input';
 import { Mutation, Args, Resolver, Query } from '@nestjs/graphql';
-// import { ObjectIdPipe } from './product.pipe';
-// import { Types } from 'mongoose';
-import {
-  GetProductsInput,
-  GetProductsSearchInput,
-} from './dto/get-products.input';
+import { GetProductsInput, GetProductsSearchInput } from './dto/get-products.input';
 import { GetProductsResponse } from './dto/get-products.response';
 import { GetProductResponse } from './dto/get-product.response';
-// import User from '../user/user.model.extra';
 import { UpdateProductInput } from './dto/update-product.input';
 import { UpdateProductResponse } from './dto/update-product.response';
 import { UseGuards } from '@nestjs/common';
