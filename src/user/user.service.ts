@@ -33,6 +33,9 @@ export class UserService {
       await this.userRepository.create(createUserInput);
       return { message: 'user registered successfully' };
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error creating user');
     }
   }
@@ -97,6 +100,9 @@ export class UserService {
         sort: { createdAt: -1 },
       });
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error getting users');
     }
   }
@@ -171,10 +177,4 @@ export class UserService {
       throw new InternalServerErrorException('Error editing profile');
     }
   }
-
-  // toEntity(userDocument: UserDocument): User {
-  //   const user = userDocument;
-  //   delete user.password;
-  //   return user;
-  // }
 }

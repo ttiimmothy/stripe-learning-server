@@ -21,6 +21,9 @@ export class ReviewService {
     try {
       return this.reviewRepository.find({ productId });
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error getting reviews');
     }
   }
@@ -30,6 +33,9 @@ export class ReviewService {
       const totalReviews = await this.reviewRepository.countDocuments({});
       return { totalReviews };
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Failed to get reviews count');
     }
   }
@@ -38,6 +44,9 @@ export class ReviewService {
     try {
       return this.reviewRepository.find({});
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error getting reviews');
     }
   }

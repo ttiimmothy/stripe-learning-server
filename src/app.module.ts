@@ -9,8 +9,8 @@ import Joi from 'joi';
 import { DatabaseModule } from './database/database.module';
 import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
-import {OrderModule} from "./order/order.module";
-import {WebhookModule} from "./webook/webhook.module";
+import { OrderModule } from './order/order.module';
+import { WebhookModule } from './webook/webhook.module';
 
 @Module({
   imports: [
@@ -42,7 +42,7 @@ import {WebhookModule} from "./webook/webhook.module";
     ProductModule,
     ReviewModule,
     OrderModule,
-    WebhookModule
+    WebhookModule,
   ],
   controllers: [AppController],
   providers: [AppService],

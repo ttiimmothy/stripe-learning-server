@@ -1,6 +1,6 @@
-import {Field, ID, InputType} from "@nestjs/graphql";
-import {IsNumber} from "class-validator";
-import {Types} from "mongoose";
+import { Field, ID, InputType } from '@nestjs/graphql';
+import { IsNumber } from 'class-validator';
+import { Types } from 'mongoose';
 
 @InputType()
 class OrderUser {
@@ -40,11 +40,11 @@ export class Products {
   updatedAt: Date;
   @Field()
   @IsNumber()
-  quantity: number
+  quantity: number;
 }
 
 @InputType()
 export class CheckoutProductInput {
   @Field(() => [Products])
-  products: Products[]
+  products: Products[];
 }

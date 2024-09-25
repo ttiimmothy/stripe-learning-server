@@ -1,6 +1,6 @@
 import { Types, SchemaTypes } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import bcrypt from 'bcrypt';
 
 @ObjectType()

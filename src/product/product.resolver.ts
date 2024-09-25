@@ -2,7 +2,10 @@ import { Product } from './product.model';
 import { ProductService } from './product.service';
 import { CreateProductInput } from './dto/create-product.input';
 import { Mutation, Args, Resolver, Query } from '@nestjs/graphql';
-import { GetProductsInput, GetProductsSearchInput } from './dto/get-products.input';
+import {
+  GetProductsInput,
+  GetProductsSearchInput,
+} from './dto/get-products.input';
 import { GetProductsResponse } from './dto/get-products.response';
 import { GetProductResponse } from './dto/get-product.response';
 import { UpdateProductInput } from './dto/update-product.input';
@@ -20,20 +23,12 @@ export class ProductResolver {
   async createProduct(
     @Args('createProductInput') createProductInput: CreateProductInput,
   ) {
-    try {
-      return this.productService.createProduct(createProductInput);
-    } catch (error) {
-      throw error;
-    }
+    return this.productService.createProduct(createProductInput);
   }
 
   @Query(() => GetProductsResponse)
   async products(@Args('getProductsInput') getProductsInput: GetProductsInput) {
-    try {
-      return this.productService.getProducts(getProductsInput);
-    } catch (error) {
-      throw error;
-    }
+    return this.productService.getProducts(getProductsInput);
   }
 
   @Query(() => GetProductsResponse)
@@ -41,13 +36,10 @@ export class ProductResolver {
     @Args('getProductsSearchInput')
     getProductsSearchInput: GetProductsSearchInput,
   ) {
-    try {
-      return this.productService.getProductsSearch(getProductsSearchInput);
-    } catch (error) {
-      throw error;
-    }
+    return this.productService.getProductsSearch(getProductsSearchInput);
   }
 
+  // find by product id
   @Query(() => GetProductResponse)
   async productById(@Args('productId') productId: string) {
     try {

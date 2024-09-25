@@ -1,14 +1,14 @@
-import {Field, ID, ObjectType} from "@nestjs/graphql";
-import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import {SchemaTypes, Types} from "mongoose";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { SchemaTypes, Types } from 'mongoose';
 
 @ObjectType()
 class ProductOrder {
   @Field()
-  productId: string
+  productId: string;
 
   @Field()
-  quantity: number
+  quantity: number;
 }
 
 @ObjectType()
@@ -21,30 +21,33 @@ export class Order {
   @Field()
   @Prop()
   orderId: string;
-  
+
   @Field(() => [ProductOrder])
   @Prop()
-  products: ProductOrder[]
+  products: ProductOrder[];
 
   @Field()
   @Prop()
-  amount: number
+  amount: number;
 
   @Field()
   @Prop()
-  email: string
+  email: string;
 
   @Field()
-  @Prop({enum: ["pending","processing", "shipped", "completed"], default: "pending"})
-  status: string
+  @Prop({
+    enum: ['pending', 'processing', 'shipped', 'completed'],
+    default: 'pending',
+  })
+  status: string;
 
   @Field()
-  @Prop({default: Date.now()})
-  createdAt: Date
+  @Prop({ default: Date.now() })
+  createdAt: Date;
 
   @Field()
-  @Prop({default: Date.now()})
-  updatedAt: Date
+  @Prop({ default: Date.now() })
+  updatedAt: Date;
 }
 
 export const orderSchema = SchemaFactory.createForClass(Order);

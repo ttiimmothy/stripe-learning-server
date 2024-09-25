@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 // import { Product } from '../product.model';
 import { User } from '../../user/user.model';
 import { Types } from 'mongoose';
-import {UserId} from "./get-products.response";
+import { UserId } from './get-products.response';
 // import { Review } from '../../review/review.model';
 
 @ObjectType()

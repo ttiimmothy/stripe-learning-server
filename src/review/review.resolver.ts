@@ -13,37 +13,21 @@ export class ReviewResolver {
 
   @Query(() => [Review])
   reviews() {
-    try {
-      return this.reviewService.reviews();
-    } catch (error) {
-      throw error;
-    }
+    return this.reviewService.reviews();
   }
 
   @Mutation(() => CreateReviewResponse)
   create(@Args('createReviewInput') createReviewInput: CreateReviewInput) {
-    try {
-      return this.reviewService.createReview(createReviewInput);
-    } catch (error) {
-      throw error;
-    }
+    return this.reviewService.createReview(createReviewInput);
   }
 
   @Query(() => ReviewsCountResponse)
   reviewsCount() {
-    try {
-      return this.reviewService.reviewsCount();
-    } catch (error) {
-      throw error;
-    }
+    return this.reviewService.reviewsCount();
   }
 
   @Query(() => [ReviewsType])
   reviewsUser(@Args('userId') userId: string) {
-    try {
-      return this.reviewService.reviewsByUserId(userId);
-    } catch (error) {
-      throw error;
-    }
+    return this.reviewService.reviewsByUserId(userId);
   }
 }

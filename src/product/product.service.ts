@@ -1,4 +1,5 @@
-import { BadRequestException,
+import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -7,7 +8,10 @@ import { CreateProductInput } from './dto/create-product.input';
 import { ProductRepository } from './product.repository';
 import { Product, ProductDocument } from './product.model';
 import { ReviewRepository } from '../review/review.repository';
-import { GetProductsInput, GetProductsSearchInput } from './dto/get-products.input';
+import {
+  GetProductsInput,
+  GetProductsSearchInput,
+} from './dto/get-products.input';
 import { FilterType } from './filter.type';
 import { ReviewDocument } from '../review/review.model';
 import { UserRepository } from '../user/user.repository';
@@ -42,6 +46,9 @@ export class ProductService {
       }
       return savedProduct;
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error creating product');
     }
   }
@@ -88,6 +95,9 @@ export class ProductService {
       });
       return { products: products, totalPages, totalProducts };
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error getting products');
     }
   }
@@ -119,6 +129,9 @@ export class ProductService {
       });
       return { products: products, totalPages, totalProducts };
     } catch (error) {
+      if (!(error instanceof InternalServerErrorException)) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error getting products');
     }
   }

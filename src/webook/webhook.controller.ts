@@ -1,14 +1,14 @@
-import {Body, Controller, Headers, Post, Res} from "@nestjs/common";
-import {WebhookService} from "./webhook.service";
+import { Body, Controller, Headers, Post, Res } from '@nestjs/common';
+import { WebhookService } from './webhook.service';
 
-@Controller("api/v1")
-export class WebhookController{
+@Controller('api/v1/stripe')
+export class WebhookController {
   constructor(private readonly webhookService: WebhookService) {}
 
-  @Post("/webhook")
+  @Post('/webhook')
   webhook(@Body() body, @Headers() headers, @Res() response) {
-    let event = body
-    const endpointSecret = process.env.STRIPE_WEBHOOK_KEY
+    const event = body;
+    const endpointSecret = process.env.STRIPE_WEBHOOK_KEY;
     if (endpointSecret) {
       try {
         this.webhookService.webhook(event, endpointSecret, body, headers);
