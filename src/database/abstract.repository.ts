@@ -70,7 +70,7 @@ export abstract class AbstractRepository<T> {
     return await this.model.deleteMany(filterQuery).lean<T>();
   }
 
-  async countDocuments(filter: any): Promise<number> {
+  async countDocuments(filter: FilterQuery<T>): Promise<number> {
     return this.model.countDocuments(filter);
   }
 }
