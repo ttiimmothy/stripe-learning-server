@@ -41,13 +41,13 @@ export class Order {
   })
   status: string;
 
-  @Field()
+  @Field({nullable: true})
   @Prop({ default: Date.now() })
-  createdAt: Date;
+  createdAt?: Date;
 
-  @Field()
+  @Field({nullable: true})
   @Prop({ default: Date.now() })
-  updatedAt: Date;
+  updatedAt?: Date;
 }
 
 export const orderSchema = SchemaFactory.createForClass(Order);

@@ -7,4 +7,7 @@ export class CheckoutResponse {
 
   @Field()
   url: string;
+
+  @Field()
+  clientSecret: string;
 }

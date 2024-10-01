@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
+import Stripe from "stripe"
 
 @Injectable()
 export class WebhookService {
   constructor() {}
 
   webhook(event: any, secret: string, body: any, headers: any) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const signature = headers['signature-secret'];
     event = stripe.webhooks.constructEvent(body, signature, secret);
     switch (event.type) {

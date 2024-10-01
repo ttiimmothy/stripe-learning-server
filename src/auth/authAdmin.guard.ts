@@ -1,5 +1,4 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-// import verifyToken from '../middleware/verifyToken';
 import verifyAdmin from '../middleware/verifyAdmin';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
@@ -7,10 +6,11 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export class AuthAdminGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().req;
     const gCtx = ctx.getContext();
+    const request = gCtx.req;
+    const response = gCtx.res
     try {
-      await verifyAdmin(request, gCtx.res);
+      await verifyAdmin(request, response);
       return true;
     } catch (error) {
       throw error;

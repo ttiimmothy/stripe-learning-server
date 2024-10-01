@@ -1,8 +1,7 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "demo_ecommerce_backend",
   "private": true,
-  "version": "1.0.2",
-  "description": "Nest TypeScript starter repository",
+  "version": "1.0.3",
   "license": "Apache-2.0",
   "scripts": {
     "build": "nest build",
@@ -31,6 +30,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mongoose": "^10.0.10",
     "@nestjs/platform-express": "^10.4.3",
+    "@nestjs/serve-static": "^4.0.2",
     "@vercel/node": "^3.2.15",
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.6",

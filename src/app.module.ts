@@ -11,6 +11,8 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { OrderModule } from './order/order.module';
 import { WebhookModule } from './webook/webhook.module';
+import {ServeStaticModule} from "@nestjs/serve-static"
+import {join} from "path";
 
 @Module({
   imports: [
@@ -25,7 +27,9 @@ import { WebhookModule } from './webook/webhook.module';
       useFactory: () => ({
         autoSchemaFile: true,
         path: '/api/v1/graphql',
-        playground: true,
+        playground: {
+          faviconUrl: "/favicon.ico"
+        },
         // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
         cors: {
@@ -43,6 +47,9 @@ import { WebhookModule } from './webook/webhook.module';
     ReviewModule,
     OrderModule,
     WebhookModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

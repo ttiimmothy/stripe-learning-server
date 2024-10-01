@@ -12,8 +12,8 @@ export class WebhookController {
     if (endpointSecret) {
       try {
         this.webhookService.webhook(event, endpointSecret, body, headers);
-      } catch (err) {
-        console.log(`⚠️  Webhook signature verification failed.`, err.message);
+      } catch (error) {
+        console.log(`⚠️  Webhook signature verification failed.`, error.message);
         return response.sendStatus(400);
       }
     }

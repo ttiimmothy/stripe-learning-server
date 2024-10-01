@@ -7,15 +7,15 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().req;
     const gCtx = ctx.getContext();
+    const request = gCtx.req;
+    const response = gCtx.res;
+    // for express context
     // const request = context.switchToHttp().getRequest();
-    // console.log(request.headers)
+    // const requst = context.switchToHttp().getResponse()
     // const token = request.headers.authorization?.split(' ')[1];
-    // console.log(token)
     try {
-      // await verifyToken(request, context.switchToHttp().getResponse().res);
-      await verifyToken(request, gCtx.res);
+      await verifyToken(request, response);
       return true;
     } catch (error) {
       throw error;
