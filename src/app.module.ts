@@ -11,8 +11,7 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { OrderModule } from './order/order.module';
 import { WebhookModule } from './webook/webhook.module';
-import {ServeStaticModule} from "@nestjs/serve-static"
-import {join} from "path";
+import {StaticModule} from "./middleware/static.module";
 
 @Module({
   imports: [
@@ -48,10 +47,7 @@ import {join} from "path";
     ReviewModule,
     OrderModule,
     WebhookModule,
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: "/"
-    }),
+    StaticModule
   ],
   controllers: [AppController],
   providers: [AppService],
