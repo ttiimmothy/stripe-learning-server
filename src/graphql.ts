@@ -12,9 +12,7 @@ async function bootstrap() {
     const adapter = new ExpressAdapter(expressApp);
     app = await NestFactory.create(AppModule, adapter, {
       logger: ['error', 'warn'],
-    });
-    // app = await NestFactory.create(AppModule, adapter);
-
+    })
     app.enableCors({
       origin: 'https://demoecommerces.vercel.app',
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
