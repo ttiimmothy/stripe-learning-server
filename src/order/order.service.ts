@@ -49,7 +49,7 @@ export class OrderService {
         },
         success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.FRONTEND_URL}/cancel`,
-      });
+      })
       return { id: session.id, url: session.url, clientSecret: session.client_secret };
     } catch (error) {
       if (!(error instanceof InternalServerErrorException)) {
