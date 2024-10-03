@@ -39,7 +39,7 @@ import {join} from "path";
           ],
           credentials: true,
         },
-        introspection: process.env.NODE_ENV === "production" ? false : true
+        introspection: true
       }),
     }),
     DatabaseModule,
