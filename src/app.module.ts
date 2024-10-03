@@ -50,7 +50,8 @@ import {join} from "path";
     WebhookModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
-    })
+      serveRoot: "/"
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
