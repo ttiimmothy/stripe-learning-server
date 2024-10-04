@@ -28,7 +28,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
   const app = await bootstrap();
   const server = app.getHttpAdapter().getInstance();
   return server(req, res);
+  }catch (error) {
+    console.error('Error in serverless function:', error);
+    res.status(500).send('Internal Server Error');
+  }
 }
