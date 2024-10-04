@@ -11,7 +11,6 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { OrderModule } from './order/order.module';
 import { WebhookModule } from './webook/webhook.module';
-import {StaticModule} from "./middleware/static.module";
 
 @Module({
   imports: [
@@ -46,8 +45,7 @@ import {StaticModule} from "./middleware/static.module";
     ProductModule,
     ReviewModule,
     OrderModule,
-    WebhookModule,
-    StaticModule
+    WebhookModule
   ],
   controllers: [AppController],
   providers: [AppService],
