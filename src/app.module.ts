@@ -25,9 +25,7 @@ import { WebhookModule } from './webook/webhook.module';
       useFactory: () => ({
         autoSchemaFile: true,
         path: '/api/v1/graphql',
-        playground: {
-          faviconUrl: "/favicon.ico"
-        },
+        playground: true,
         // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
         cors: {
