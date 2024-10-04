@@ -11,6 +11,7 @@ import { ProductModule } from './product/product.module';
 import { ReviewModule } from './review/review.module';
 import { OrderModule } from './order/order.module';
 import { WebhookModule } from './webook/webhook.module';
+// import {StaticModule} from "./middleware/static.module";
 
 @Module({
   imports: [
@@ -26,6 +27,9 @@ import { WebhookModule } from './webook/webhook.module';
         autoSchemaFile: true,
         path: '/api/v1/graphql',
         playground: true,
+        // playground: {
+        //   faviconUrl: "/favicon.ico"
+        // },
         // implment express response (cookies)
         context: ({ req, res }) => ({ req, res }),
         cors: {
@@ -35,7 +39,7 @@ import { WebhookModule } from './webook/webhook.module';
           ],
           credentials: true,
         },
-        introspection: true
+        // introspection: true
       }),
     }),
     DatabaseModule,
@@ -43,7 +47,8 @@ import { WebhookModule } from './webook/webhook.module';
     ProductModule,
     ReviewModule,
     OrderModule,
-    WebhookModule
+    WebhookModule,
+    // StaticModule
   ],
   controllers: [AppController],
   providers: [AppService],
