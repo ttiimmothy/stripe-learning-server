@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
+import {VercelRequest, VercelResponse} from "@vercel/node";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,4 +25,10 @@ async function bootstrap() {
 
 if (process.env.NODE_ENV !== 'production') {
   bootstrap();
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const app = await bootstrap();
+  const server = app.getHttpAdapter().getInstance();
+  return server(req, res);
 }
