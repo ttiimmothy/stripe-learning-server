@@ -39,7 +39,7 @@ import { WebhookModule } from './webook/webhook.module';
           ],
           credentials: true,
         },
-        // introspection: true
+        introspection: true
       }),
     }),
     DatabaseModule,
