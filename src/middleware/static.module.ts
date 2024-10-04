@@ -9,9 +9,10 @@ import { join } from 'path';
         __dirname,
         '..',
         "..",
-        "public"
+        "public",
+        "favicon.ico"
       ),
-      serveRoot: "/"
+      serveRoot: "/favicon.ico"
     })
   ]
 })
