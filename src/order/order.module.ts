@@ -10,5 +10,6 @@ import { OrderRepository } from './order.repository';
     DatabaseModule.forFeature([{ name: Order.name, schema: orderSchema }]),
   ],
   providers: [OrderResolver, OrderService, OrderRepository],
+  exports: [OrderRepository]
 })
 export class OrderModule {}

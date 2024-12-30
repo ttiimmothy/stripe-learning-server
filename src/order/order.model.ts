@@ -1,10 +1,11 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaTypes, Types } from 'mongoose';
+import {StripeOrder} from "./order.type";
 
 @ObjectType()
 class ProductOrder {
-  @Field()
+  @Field(() => String)
   productId: string;
 
   @Field()
@@ -35,10 +36,7 @@ export class Order {
   email: string;
 
   @Field()
-  @Prop({
-    enum: ['pending', 'processing', 'shipped', 'completed'],
-    default: 'pending',
-  })
+  @Prop({enum: ['pending', 'processing', 'shipped', 'completed'], default: 'pending'})
   status: string;
 
   @Field({nullable: true})
