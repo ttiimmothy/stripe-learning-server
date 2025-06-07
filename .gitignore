@@ -405,3 +405,4 @@ user.controller.ts
 abstract.entity.ts
 # user-email-index.ts
 generateToken.ts
+.vscode/
