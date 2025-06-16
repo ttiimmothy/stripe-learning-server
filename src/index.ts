@@ -23,7 +23,9 @@ async function bootstrap() {
   return app;
 }
 
-if (process.env.NODE_ENV !== 'production') {
+const configService = new ConfigService();
+
+if (configService.get("NODE_ENV") !== 'production') {
   bootstrap();
 }
 

@@ -1,11 +1,12 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { OrderRepository } from './order.repository';
 import { CheckoutProductInput } from './dto/checkout.input';
+import {ConfigService} from "@nestjs/config";
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly orderRepository: OrderRepository) {}
-  stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+  constructor(private readonly orderRepository: OrderRepository, private configService: ConfigService) {}
+  stripe = require('stripe')(this.configService.getOrThrow<string>("STRIPE_SECRET_KEY"));
 
   async checkout(checkoutProducts: CheckoutProductInput) {
     try {
@@ -26,7 +27,7 @@ export class OrderService {
         },
         // 13% tax rate
         // cannot show % in the bracket, so not using fixed tax rate id
-        tax_rates: [process.env.STRIPE_TAX_RATE_ID],
+        tax_rates: [this.configService.getOrThrow<string>("STRIPE_TAX_RATE_ID")],
         quantity: product.quantity,
       }));
       const session = await this.stripe.checkout.sessions.create({
@@ -41,14 +42,14 @@ export class OrderService {
         },
         shipping_options: [
           {
-            shipping_rate: process.env.STRIPE_SHIPPING_RATE_ID,
+            shipping_rate: this.configService.getOrThrow<string>("STRIPE_SHIPPING_RATE_ID"),
           },
         ],
         shipping_address_collection: {
           allowed_countries: ['CA'], // Only allow shipping to Canada
         },
-        success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+        success_url: `${this.configService.getOrThrow<string>("FRONTEND_URL")}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${this.configService.getOrThrow<string>("FRONTEND_URL")}/cancel`,
       })
       return { id: session.id, url: session.url, clientSecret: session.client_secret };
     } catch (error) {
@@ -84,7 +85,7 @@ export class OrderService {
       order.status = session.payment_intent.status === "succeeded" ? "pending" : "failed";
     }
     return order
-    } catch (error) {
+    } catch (e) {
       throw new InternalServerErrorException('Error confirming payment');
     }
   }

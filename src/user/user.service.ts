@@ -57,8 +57,8 @@ export class UserService {
       // set cookie
       response.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Only use secure in production
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: this.configService.get<string>("NODE_ENV") === 'production', // Only use secure in production
+        sameSite: this.configService.get<string>("NODE_ENV") === 'production' ? 'none' : 'lax',
         maxAge: 3600000, // 1 hour
       });
       const userResponse = generateUserResponse(user);

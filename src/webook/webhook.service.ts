@@ -1,14 +1,15 @@
 import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import Stripe from "stripe"
 import {OrderRepository} from "../order/order.repository";
+import {ConfigService} from "@nestjs/config";
 
 @Injectable()
 export class WebhookService {
-  constructor(private readonly orderRepositoy: OrderRepository) {}
+  constructor(private readonly orderRepository: OrderRepository, private configService: ConfigService) {}
 
   async webhook(event: any, secret: string, body: any, headers: any) {
     try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const stripe = new Stripe(this.configService.getOrThrow<string>("STRIPE_SECRET_KEY"));
     const signature = headers['signature-secret'];
     event = stripe.webhooks.constructEvent(body, signature, secret);
     switch (event.type) {
@@ -28,13 +29,12 @@ export class WebhookService {
         const session = await stripe.checkout.sessions.retrieve(checkoutSessionCompleted.id, {
           expand: ["line_items", "payment_intent"]
         })
-        let paymentIntentId;
         if (!session.payment_intent || typeof session.payment_intent !== 'object') {
         // if (session.payment_intent && typeof session.payment_intent === 'object') {
           throw new UnauthorizedException("Cannot get the payment intent from checkout session")
         }
-        paymentIntentId = session.payment_intent.id;
-        let order = await this.orderRepositoy.findOne({orderId: paymentIntentId})
+        const paymentIntentId = session.payment_intent.id;
+        const order = await this.orderRepository.findOne({orderId: paymentIntentId})
         if (!order) {
           const lineItems = session.line_items.data.map((item) => ({
             productId: item.price.product,

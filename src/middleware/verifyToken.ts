@@ -5,11 +5,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { RequestWithUser } from './expressRequest.interface';
+import { ConfigService } from '@nestjs/config';
+
+const configService = new ConfigService();
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const verifyToken = async (req: RequestWithUser, res: Response) => {
   try {
-    let token = req.cookies.token
+    const token = req.cookies.token
     // if (!token) {
     //   token = req.headers.authorization?.split(' ')[1];
     // }
@@ -17,7 +20,7 @@ const verifyToken = async (req: RequestWithUser, res: Response) => {
       res.status(404).json({message: "Invalid token"})
       throw new UnauthorizedException({ message: 'Invalid token' });
     }
-    const jwtSecretKey = process.env.JWT_SECRET_KEY;
+    const jwtSecretKey = configService.getOrThrow<string>('JWT_SECRET_KEY');
     if (!jwtSecretKey) {
       res.status(500).json({message: "JWT_SECRET_KEY is not defined"})
       throw new Error('JWT_SECRET_KEY is not defined');
