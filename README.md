@@ -1,4 +1,4 @@
-# Demo Ecommerce Backend
+# Stripe Learning Server 
 
 ## Description
 
@@ -50,4 +50,4 @@ Check out a few resources that may come in handy when working with NestJS:
 
 ## License
 
-Demo Ecommerce is licensed under [Apache License 2.0](LICENSE).
+Stripe Learning Server is licensed under [Apache License 2.0](LICENSE).
